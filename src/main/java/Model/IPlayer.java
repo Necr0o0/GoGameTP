@@ -1,5 +1,6 @@
-/*import Enums.PlayerColor;
-import com.badlogic.gdx.math.Vector2;
+package Model;
+
+import Model.Enums.PlayerColor;
 
 import java.util.Vector;
 
@@ -7,7 +8,6 @@ import java.util.Vector;
 public interface IPlayer
 {
     public PlayerColor GetPlayerColor();
-    public Vector2 Move();
+    public int[][] Move();
 
 }
-*/

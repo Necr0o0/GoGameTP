@@ -1,4 +1,7 @@
-import Enums.*;
+package Model;
+
+import Model.Enums.BoardPositionValue;
+import Model.Enums.PlayerColor;
 
 public interface IGameLogic
 {

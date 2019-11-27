@@ -1,4 +1,6 @@
-import Enums.PlayerColor;
+package Controller;
+
+import Model.Enums.PlayerColor;
 
 import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
@@ -13,8 +15,8 @@ public class Server {
 				System.out.println("The game server is running...");
 				ExecutorService pool = Executors.newFixedThreadPool( 2 );
 				while( true ) {
-					pool.execute( new Player(listener.accept(), PlayerColor.White) );
-					pool.execute( new Player(listener.accept(), PlayerColor.Black) );
+					pool.execute( new User(listener.accept(), PlayerColor.White) );
+					pool.execute( new User(listener.accept(), PlayerColor.Black) );
 				}
 			}
 	}

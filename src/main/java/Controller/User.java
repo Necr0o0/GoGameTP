@@ -1,10 +1,12 @@
-import Enums.PlayerColor;
+package Controller;
+
+import Model.Enums.PlayerColor;
 
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Player implements Runnable {
+public class User implements Runnable {
 
 	public Socket socket;
 	public PlayerColor color;
@@ -12,7 +14,7 @@ public class Player implements Runnable {
 	Scanner in;
 	PrintWriter out;
 
-	public Player(Socket socket, PlayerColor color ) {
+	public User(Socket socket, PlayerColor color ) {
 		this.socket = socket;
 		this.color = color;
 	}

@@ -1,4 +1,6 @@
-import Enums.PlayerColor;
+package Controller;
+
+import Model.Enums.PlayerColor;
 
 import java.io.PrintWriter;
 import java.net.Socket;
