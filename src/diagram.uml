@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="495.0" y="76.0">View.StartView</node>
+    <node x="191.0" y="76.0">View.Settings.SettingsView</node>
+    <node x="343.0" y="76.0">View.GameplayView</node>
+    <node x="361.0" y="152.0">View.Settings.BotSettingView</node>
+    <node x="339.5" y="0.0">View.BasicGameView</node>
+    <node x="173.0" y="152.0">View.Settings.ClientSettingView</node>
+    <node x="0.0" y="152.0">View.Settings.HostSettingView</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="View.Settings.HostSettingView" target="View.Settings.SettingsView">
+      <point x="0.0" y="-13.0" />
+      <point x="76.5" y="127.0" />
+      <point x="213.0" y="127.0" />
+      <point x="-44.0" y="13.0" />
+    </edge>
+    <edge source="View.Settings.ClientSettingView" target="View.Settings.SettingsView">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="View.GameplayView" target="View.BasicGameView">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="View.StartView" target="View.BasicGameView">
+      <point x="0.0" y="-13.0" />
+      <point x="550.0" y="51.0" />
+      <point x="455.33333333333337" y="51.0" />
+      <point x="46.33333333333337" y="13.0" />
+    </edge>
+    <edge source="View.Settings.SettingsView" target="View.BasicGameView">
+      <point x="0.0" y="-13.0" />
+      <point x="257.0" y="51.0" />
+      <point x="362.6666666666667" y="51.0" />
+      <point x="-46.333333333333314" y="13.0" />
+    </edge>
+    <edge source="View.Settings.BotSettingView" target="View.Settings.SettingsView">
+      <point x="0.0" y="-13.0" />
+      <point x="434.0" y="127.0" />
+      <point x="301.0" y="127.0" />
+      <point x="44.0" y="13.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="382.0" y="24.0" />
+  <SelectedNodes>
+    <node>View.Settings.HostSettingView</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
