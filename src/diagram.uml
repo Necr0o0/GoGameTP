@@ -3,52 +3,61 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="495.0" y="76.0">View.StartView</node>
-    <node x="191.0" y="76.0">View.Settings.SettingsView</node>
-    <node x="343.0" y="76.0">View.GameplayView</node>
-    <node x="361.0" y="152.0">View.Settings.BotSettingView</node>
-    <node x="339.5" y="0.0">View.BasicGameView</node>
-    <node x="173.0" y="152.0">View.Settings.ClientSettingView</node>
-    <node x="0.0" y="152.0">View.Settings.HostSettingView</node>
+    <node x="190.0" y="76.0">org.tpproject.maven.Controller.View.Settings.SettingsView</node>
+    <node x="171.0" y="294.0">org.tpproject.maven.Controller.Model.IPlayer</node>
+    <node x="0.0" y="294.0">org.tpproject.maven.Controller.Model.IGameLogic</node>
+    <node x="348.0" y="0.0">org.tpproject.maven.Controller.View.BasicGameView</node>
+    <node x="318.0" y="294.0">org.tpproject.maven.Controller.Client</node>
+    <node x="0.0" y="223.0">org.tpproject.maven.Controller.Model.Enums.BoardPositionValue</node>
+    <node x="123.0" y="365.0">org.tpproject.maven.Controller.User</node>
+    <node x="0.0" y="152.0">org.tpproject.maven.Controller.View.Settings.BotSettingView</node>
+    <node x="352.0" y="76.0">org.tpproject.maven.Controller.View.GameplayView</node>
+    <node x="0.0" y="365.0">org.tpproject.maven.Controller.Model.Game</node>
+    <node x="457.0" y="294.0">org.tpproject.maven.Controller.Server</node>
+    <node x="514.0" y="76.0">main.java.View.StartView</node>
+    <node x="430.0" y="223.0">org.tpproject.maven.Controller.Model.Enums.PlayerColor</node>
+    <node x="364.0" y="152.0">org.tpproject.maven.Controller.View.Settings.ClientSettingView</node>
+    <node x="178.0" y="152.0">org.tpproject.maven.Controller.View.Settings.HostSettingView</node>
+    <node x="235.0" y="223.0">org.tpproject.maven.Controller.View.Common.LabelComboBox</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="View.Settings.HostSettingView" target="View.Settings.SettingsView">
-      <point x="0.0" y="-13.0" />
-      <point x="76.5" y="127.0" />
-      <point x="213.0" y="127.0" />
-      <point x="-44.0" y="13.0" />
-    </edge>
-    <edge source="View.Settings.ClientSettingView" target="View.Settings.SettingsView">
+    <edge source="org.tpproject.maven.Controller.View.Settings.HostSettingView" target="org.tpproject.maven.Controller.View.Settings.SettingsView">
       <point x="0.0" y="-13.0" />
       <point x="0.0" y="13.0" />
     </edge>
-    <edge source="View.GameplayView" target="View.BasicGameView">
+    <edge source="org.tpproject.maven.Controller.View.Settings.BotSettingView" target="org.tpproject.maven.Controller.View.Settings.SettingsView">
+      <point x="5.6843418860808015E-14" y="-13.0" />
+      <point x="79.00000000000006" y="127.0" />
+      <point x="213.66666666666666" y="127.0" />
+      <point x="-47.33333333333334" y="13.0" />
+    </edge>
+    <edge source="org.tpproject.maven.Controller.View.Settings.SettingsView" target="org.tpproject.maven.Controller.View.BasicGameView">
+      <point x="0.0" y="-13.0" />
+      <point x="261.0" y="51.0" />
+      <point x="373.0" y="51.0" />
+      <point x="-50.0" y="13.0" />
+    </edge>
+    <edge source="org.tpproject.maven.Controller.View.GameplayView" target="org.tpproject.maven.Controller.View.BasicGameView">
       <point x="0.0" y="-13.0" />
       <point x="0.0" y="13.0" />
     </edge>
-    <edge source="View.StartView" target="View.BasicGameView">
+    <edge source="org.tpproject.maven.Controller.View.Settings.ClientSettingView" target="org.tpproject.maven.Controller.View.Settings.SettingsView">
       <point x="0.0" y="-13.0" />
-      <point x="550.0" y="51.0" />
-      <point x="455.33333333333337" y="51.0" />
-      <point x="46.33333333333337" y="13.0" />
+      <point x="455.0" y="127.0" />
+      <point x="308.3333333333333" y="127.0" />
+      <point x="47.333333333333314" y="13.0" />
     </edge>
-    <edge source="View.Settings.SettingsView" target="View.BasicGameView">
+    <edge source="main.java.View.StartView" target="org.tpproject.maven.Controller.View.BasicGameView">
       <point x="0.0" y="-13.0" />
-      <point x="257.0" y="51.0" />
-      <point x="362.6666666666667" y="51.0" />
-      <point x="-46.333333333333314" y="13.0" />
-    </edge>
-    <edge source="View.Settings.BotSettingView" target="View.Settings.SettingsView">
-      <point x="0.0" y="-13.0" />
-      <point x="434.0" y="127.0" />
-      <point x="301.0" y="127.0" />
-      <point x="44.0" y="13.0" />
+      <point x="573.0" y="51.0" />
+      <point x="473.0" y="51.0" />
+      <point x="50.0" y="13.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="382.0" y="24.0" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="382.0" y="44.5" />
   <SelectedNodes>
-    <node>View.Settings.HostSettingView</node>
+    <node>org.tpproject.maven.Controller.Model.Enums.BoardPositionValue</node>
   </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>
