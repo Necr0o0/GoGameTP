@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import View.GameplayView;
+
 public class Client {
 
 	// Connection and input/output variables:
@@ -14,7 +16,9 @@ public class Client {
 	private PrintWriter out;
 
 	// Player's color:
+	GameplayView game_view;
 	public PlayerColor color;
+	public PlayerColor enemy_color; // Maybe there's a better way to get enemy's colour, but I'm lazy ~P
 
 	// Client constructor:
 	public Client( String server_address ) throws Exception {
@@ -25,6 +29,7 @@ public class Client {
 
 	// Method for testing purposes, might remove later:
 	public void SendMessage( String message ) {
+		System.out.println("merdas");
 		out.println( message );
 	}
 
@@ -36,17 +41,38 @@ public class Client {
 		}
 	}
 
+	// Process data received from the server:
+	public void PlayLoop() {
+		while (in.hasNextLine()) {
+			String[] command = in.nextLine().split(" ");
+			if( command[0].equals("VALID_MOVE") ) {
+				System.out.println("Received " + "VALID_MOVE");
+				int y = Integer.parseInt( command[1] );
+				int x = Integer.parseInt( command[2] );
+				game_view.PlaceStone( x, y, color );
+			} else if ( command[0].equals("OPPONENT_MOVED") ) {
+				System.out.println("Received " + "OPPONENT_MOVED");
+				int y = Integer.parseInt( command[1] );
+				int x = Integer.parseInt( command[2] );
+				game_view.PlaceStone( x, y, enemy_color );  // change this from White to enemy's colour
+			}
+		}
+
+	}
+
 	// args[0] should be the server's address, localhost or 127.0.0.1 for now:
 	public static void main(String[] args ) throws Exception {
 		if( args.length != 1 ) {
 			System.err.println("Pass the server IP as the sole command line argument");
 			return;
 		}
-		Client client = new Client( args[0] );
 
-		System.out.println( client.in.nextLine() ); // Hello world (...)
-		System.out.println( client.in.nextLine() ); // My colour (...)
-		client.out.println( "From Client to Server!" );
+		Client client = new Client( args[0] );
+		client.color = PlayerColor.valueOf(client.in.next()); // Get assigned color from server
+		client.enemy_color = ( client.color == PlayerColor.Black ? PlayerColor.White : PlayerColor.Black );
+		client.game_view = new GameplayView( client );        // Launch the window with the game
+		client.PlayLoop();
+
 	}
 
 }

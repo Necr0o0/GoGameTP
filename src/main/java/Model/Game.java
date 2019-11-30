@@ -1,6 +1,8 @@
 package Model;
 
-public class Game
-{
+import Controller.User;
+
+public class Game {
+	public User current_player;
 
 }

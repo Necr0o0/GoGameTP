@@ -1,5 +1,7 @@
 package View;
 
+import Controller.Client;
+import Model.Enums.PlayerColor;
 import View.Common.MapActionListener;
 import View.Sprites.Sprites;
 
@@ -18,7 +20,7 @@ public class GameplayView extends BasicGameView
     private JPanel settingsPanel = new JPanel();
     
     private JLabel title = new JLabel("Go Game");
-    private JLabel currentPlayer = new JLabel("Current Player: Black ");
+    private JLabel currentPlayer = new JLabel("Current Player: Undefined ");  // Zmieniłem tutaj ~P
 
     private JLabel blackScore = new JLabel("White Captured: 0 ");
     private JLabel whiteScore = new JLabel("Black Captured: 0 ");
@@ -44,7 +46,7 @@ public class GameplayView extends BasicGameView
                 moveButton[i][j] = new JButton("");
                 moveButton[i][j].setPreferredSize(new Dimension(30,30));
                moveButton[i][j].setIcon(Sprites.GetPoint());
-               moveButton[i][j].addActionListener(new MapActionListener(i,j,"Empty"));
+               //moveButton[i][j].addActionListener(new MapActionListener(i,j,"Empty"));
                gameplayPanel.add(moveButton[i][j]);
            }
        }
@@ -67,6 +69,51 @@ public class GameplayView extends BasicGameView
 
         pack();
     }
+
+  // Wybacz, że tak się tutaj wpisałem, ale nie chciałem nic zmieniać w już istniejącym tutaj kodzie,
+  // więc zrobiłem sobie własny konstruktor :x Jeszcze ustalimy, jak to powinno działać ~P
+  public GameplayView( Client client ) {
+    PrepareFrame();
+
+    this.setLayout(new BorderLayout());
+    this.add(titlePanel,BorderLayout.PAGE_START);
+
+    this.currentPlayer.setText( "Current player: " + client.color ); // Set the color label
+
+    this.add(gameplayPanel,BorderLayout.CENTER);
+    gameplayPanel.setLayout(new GridLayout(mapSize,mapSize));
+    for(int i = 0; i<mapSize;i++){
+      for (int j= 0; j<mapSize;j++)
+      {
+        moveButton[i][j] = new JButton("");
+        moveButton[i][j].setPreferredSize(new Dimension(30,30));
+        moveButton[i][j].setIcon(Sprites.GetPoint());
+        moveButton[i][j].addActionListener(new MapActionListener(i,j,"Empty", client));
+        gameplayPanel.add(moveButton[i][j]);
+      }
+    }
+
+    this.add(settingsPanel,BorderLayout.LINE_END);
+    settingsPanel.setLayout(new BoxLayout(settingsPanel,BoxLayout.Y_AXIS));
+
+    settingsPanel.add(currentPlayer);
+    settingsPanel.add(blackScore);
+    settingsPanel.add(whiteScore);
+    settingsPanel.add(passButton);
+
+    this.add(log, BorderLayout.PAGE_END);
+
+    titlePanel.add(title);
+    pack();
+  }
+
+  public void PlaceStone( int x, int y, PlayerColor color ) {
+      if( color == PlayerColor.Black ) {
+        moveButton[x][y].setIcon(Sprites.GetBlack());
+      } else {
+        moveButton[x][y].setIcon(Sprites.GetWhite());
+      }
+  }
 
     public static void main(String[] args )
 

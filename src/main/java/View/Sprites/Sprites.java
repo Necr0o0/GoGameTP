@@ -18,4 +18,11 @@ public class Sprites {
         System.out.println(System.getProperty("user.dir"));
         return point;
     }
+    // ~P
+    public static ImageIcon GetWhite()
+    {
+        ImageIcon point = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\View\\Sprites\\White.png");
+        System.out.println(System.getProperty("user.dir"));
+        return point;
+    }
 }
