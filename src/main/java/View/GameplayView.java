@@ -1,6 +1,9 @@
 package View;
 
+import View.Sprites.Sprites;
+
 import javax.swing.*;
+import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 
 public class GameplayView extends BasicGameView
@@ -41,6 +44,8 @@ public class GameplayView extends BasicGameView
            {
                 moveButton[i][j] = new JButton("");
                 moveButton[i][j].setPreferredSize(new Dimension(30,30));
+               moveButton[i][j].setIcon(Sprites.GetPoint());
+               moveButton[i][j].addActionListener(new MapActionListener(i,j,"Empty"));
                gameplayPanel.add(moveButton[i][j]);
            }
        }
@@ -63,7 +68,6 @@ public class GameplayView extends BasicGameView
 
         pack();
     }
-
 
     public static void main(String[] args )
 
