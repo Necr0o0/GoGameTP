@@ -1,7 +1,7 @@
 package org.tpproject.maven;
 
 import org.junit.jupiter.api.Test;
-import org.tpproject.maven.Controller.Client;
+import Controller.Client;
 
 import static org.junit.jupiter.api.Assertions.*;
 
