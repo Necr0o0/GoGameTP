@@ -18,7 +18,7 @@ public class Client {
 	// Player's color:
 	GameplayView game_view;
 	public PlayerColor color;
-	public PlayerColor enemy_color; // Maybe there's a better way to get enemy's colour, but I'm lazy ~P
+	public PlayerColor enemy_color;
 
 	// Client constructor:
 	public Client( String server_address ) throws Exception {
@@ -27,9 +27,7 @@ public class Client {
 		out = new PrintWriter(socket.getOutputStream(), true);
 	}
 
-	// Method for testing purposes, might remove later:
 	public void SendMessage( String message ) {
-		System.out.println("merdas");
 		out.println( message );
 	}
 
@@ -54,7 +52,7 @@ public class Client {
 				System.out.println("Received " + "OPPONENT_MOVED");
 				int y = Integer.parseInt( command[1] );
 				int x = Integer.parseInt( command[2] );
-				game_view.PlaceStone( x, y, enemy_color );  // change this from White to enemy's colour
+				game_view.PlaceStone( x, y, enemy_color );
 			}
 		}
 
