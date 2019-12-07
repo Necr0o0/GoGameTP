@@ -5,7 +5,7 @@ public class ClientSettingView extends SettingsView
 
     ClientSettingView settingView;
 
-    ClientSettingView()
+    public ClientSettingView()
     {
         AddPort();
     }

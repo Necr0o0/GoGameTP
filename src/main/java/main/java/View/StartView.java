@@ -1,5 +1,8 @@
 package main.java.View;
 
+import Controller.StartController;
+import View.Common.StartActionListener;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,7 +17,6 @@ public class StartView extends View.BasicGameView
 
     public StartView()
     {
-       //super("Start");
 
        PrepareFrame();
        this.setLayout(new GridLayout(2,1));
@@ -25,13 +27,11 @@ public class StartView extends View.BasicGameView
        settingsPanel.add(botSettings);
        settingsPanel.add(hostSettings);
        settingsPanel.add(clientSettings);
+
+       botSettings.addActionListener(new StartActionListener("bot",this));
+       hostSettings.addActionListener(new StartActionListener("host",this));
+       clientSettings.addActionListener(new StartActionListener("join",this));
+
+
     }
-
-
-    public static void main(String[] args )
-
-    {
-        StartView settingView = new StartView();
-    }
-
 }

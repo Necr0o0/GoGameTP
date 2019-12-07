@@ -5,7 +5,7 @@ public class HostSettingView extends SettingsView
 
     HostSettingView settingView;
 
-    HostSettingView()
+    public HostSettingView()
     {
         AddMapsize();
         AddPlayerColor();

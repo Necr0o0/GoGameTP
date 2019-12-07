@@ -5,7 +5,7 @@ public class BotSettingView extends SettingsView
 
     BotSettingView settingView;
 
-    BotSettingView()
+    public BotSettingView()
     {
         AddMapsize();
         AddPlayerColor();
