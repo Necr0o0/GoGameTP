@@ -9,6 +9,7 @@ public class BotSettingView extends SettingsView
     {
         AddMapsize();
         AddPlayerColor();
+        AddStartButton();
     }
     public static void main(String[] args )
 

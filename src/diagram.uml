@@ -3,32 +3,17 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="14.483333333333334" y="152.0">Controller.StartController</node>
-    <node x="0.0" y="76.0">main.java.View.StartView</node>
-    <node x="24.816666666666677" y="0.0">View.Common.StartActionListener</node>
+    <node x="0.0" y="142.0">Controller.StartController</node>
+    <node x="191.0" y="213.0">View.GameplayView</node>
+    <node x="0.0" y="284.0">main.java.View.StartView</node>
+    <node x="0.0" y="213.0">View.Settings.BotSettingView</node>
+    <node x="0.0" y="71.0">View.Settings.ClientSettingView</node>
+    <node x="198.0" y="142.0">View.Settings.HostSettingView</node>
+    <node x="0.0" y="0.0">View.Common.StartActionListener</node>
   </nodes>
   <notes />
-  <edges>
-    <edge source="Controller.StartController" target="main.java.View.StartView">
-      <point x="-57.375" y="-13.0" />
-      <point x="33.608333333333334" y="127.0" />
-      <point x="27.5" y="127.0" />
-      <point x="-27.5" y="13.0" />
-    </edge>
-    <edge source="main.java.View.StartView" target="View.Common.StartActionListener">
-      <point x="0.0" y="-13.0" />
-      <point x="-60.666666666666664" y="13.0" />
-    </edge>
-    <edge source="View.Common.StartActionListener" target="Controller.StartController">
-      <point x="60.66666666666666" y="13.0" />
-      <point x="176.48333333333335" y="51.0" />
-      <point x="131.5" y="51.0" />
-      <point x="131.5" y="127.0" />
-      <point x="148.35833333333335" y="127.0" />
-      <point x="57.375" y="-13.0" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Group" zoom="1.2" x="163.33444333444328" y="114.3149073149073" />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.2" x="455.5" y="193.16666666666669" />
   <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>

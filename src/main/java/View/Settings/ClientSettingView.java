@@ -7,6 +7,7 @@ public class ClientSettingView extends SettingsView
 
     public ClientSettingView()
     {
+        AddStartButton();
         AddPort();
     }
     public static void main(String[] args )

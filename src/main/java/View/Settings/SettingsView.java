@@ -1,10 +1,21 @@
 package View.Settings;
 
+import Controller.Client;
+import Controller.Server;
+import Controller.User;
+import Model.Enums.PlayerColor;
+import Model.Game;
 import View.Common.LabelComboBox;
 import View.BasicGameView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public abstract class SettingsView extends BasicGameView
 {
@@ -29,7 +40,7 @@ public abstract class SettingsView extends BasicGameView
        PrepareFrame();
        PrepareSettingsPanel();
        PrepareStartPanel();
-       AddStartButton();
+
     }
 
 
@@ -59,6 +70,43 @@ public abstract class SettingsView extends BasicGameView
     void AddStartButton()
     {
         _startPanel.add(_startGameButton);
+
+        _startGameButton.addActionListener(e -> {
+
+            System.out.println("ODPALAM ");
+
+            try {
+                Client client = new Client( "127.0.0.1" );
+                client.start();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
+
+    void AddServerStartButton()
+    {
+        _startPanel.add(_startGameButton);
+        _startGameButton.addActionListener(e -> {
+
+
+            Server server = new Server();
+            server.start();
+
+            try {
+                Client client = new Client( "127.0.0.1" );
+                client.start();
+
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        });
+
+
+
+
     }
 
     void AddPort()

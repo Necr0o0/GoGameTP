@@ -10,6 +10,7 @@ public class HostSettingView extends SettingsView
         AddMapsize();
         AddPlayerColor();
         AddPort();
+        AddServerStartButton();
 
     }
     public static void main(String[] args )

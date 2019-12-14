@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import View.GameplayView;
 
-public class Client {
+public class Client extends Thread {
 
 	// Connection and input/output variables:
 	private Socket socket;
@@ -60,17 +60,20 @@ public class Client {
 
 	// args[0] should be the server's address, localhost or 127.0.0.1 for now:
 	public static void main(String[] args ) throws Exception {
-		if( args.length != 1 ) {
-			System.err.println("Pass the server IP as the sole command line argument");
-			return;
-		}
 
-		Client client = new Client( args[0] );
-		client.color = PlayerColor.valueOf(client.in.next()); // Get assigned color from server
-		client.enemy_color = ( client.color == PlayerColor.Black ? PlayerColor.White : PlayerColor.Black );
-		client.game_view = new GameplayView( client );        // Launch the window with the game
-		client.PlayLoop();
 
 	}
 
+	@Override
+	public void run() {
+
+
+		//System.out.println(client.socket.getRemoteSocketAddress());
+		this.color = PlayerColor.valueOf(this.in.next()); // Get assigned color from server
+		System.out.println("CLIENT SIE ODPALIL");
+		this.enemy_color = ( this.color == PlayerColor.Black ? PlayerColor.White : PlayerColor.Black );
+		this.game_view = new GameplayView( this );        // Launch the window with the game
+		this.PlayLoop();
+
+	}
 }
