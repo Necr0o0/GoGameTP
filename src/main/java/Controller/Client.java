@@ -53,6 +53,8 @@ public class Client extends Thread {
 				int y = Integer.parseInt( command[1] );
 				int x = Integer.parseInt( command[2] );
 				game_view.PlaceStone( x, y, enemy_color );
+			} else if ( command[0].equals("LOG") ) {
+				game_view.Log( command[1] );  // TODO change it so the message can contain spaces
 			}
 		}
 

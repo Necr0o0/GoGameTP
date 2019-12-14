@@ -1,12 +1,22 @@
 package Controller;
 
+import Model.DefaultGameLogic;
 import Model.Enums.PlayerColor;
-import Model.Game;
+import Model.IGameLogic;
 
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+/*
+	Lista komend:
+	CLIENT -> SERVER:
+		PUT_STONE x y
+	SERVER -> CLIENT:
+		VALID_MOVE x y
+		OPPONENT_MOVED x y
+
+ */
 public class User implements Runnable {
 
 	// Connection-related fields
@@ -17,9 +27,9 @@ public class User implements Runnable {
 	// Gameplay-related fields
 	public PlayerColor color;
 	public User opponent;
-	public Game game;
+	public DefaultGameLogic game; // Would be nice if this could be an interface, but then the variables don't seem to work...
 
-	public User(Socket socket, PlayerColor color, Game game ) {
+	public User(Socket socket, PlayerColor color, DefaultGameLogic game ) {
 		this.socket = socket;
 		this.color = color;
 		this.game = game;   // so that the threads can communicate with each other
@@ -52,8 +62,15 @@ public class User implements Runnable {
 				System.out.println("Received " + "PUT_STONE");
 				int y = Integer.parseInt( command[1] );
 				int x = Integer.parseInt( command[2] );
-				out.println( "VALID_MOVE " + x + " " + y );
-				opponent.out.println( "OPPONENT_MOVED " + x + " " + y );
+				if( game.ValidateMove( this ) ) {
+					out.println("LOG wykonano_ruch");
+					out.println("VALID_MOVE " + x + " " + y);
+					opponent.out.println("OPPONENT_MOVED " + x + " " + y);
+					game.current_player = this.opponent;  // End your turn
+				} else {
+					out.println("LOG nie_wolno");
+					//System.out.println( "Metoda game.ValidateMove() zwróciła \'false\'");
+				}
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.Enums.PlayerColor;
-import Model.Game;
+import Model.DefaultGameLogic;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -26,7 +26,7 @@ public class Server extends Thread {
 			ExecutorService pool = Executors.newFixedThreadPool( 2 );
 			while( true )
 			{
-				Game game = new Game();
+				DefaultGameLogic game = new DefaultGameLogic();
 				pool.execute( new User(listener.accept(), PlayerColor.Black, game ) );
 				pool.execute( new User(listener.accept(), PlayerColor.White, game ) );
 			}

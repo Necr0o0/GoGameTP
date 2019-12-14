@@ -4,7 +4,7 @@ import Controller.Client;
 import Controller.Server;
 import Controller.User;
 import Model.Enums.PlayerColor;
-import Model.Game;
+import Model.DefaultGameLogic;
 import View.Common.LabelComboBox;
 import View.BasicGameView;
 

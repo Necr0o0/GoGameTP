@@ -20,7 +20,7 @@ public class GameplayView extends BasicGameView
     private JPanel settingsPanel = new JPanel();
 
     private JLabel title = new JLabel("Go Game");
-    private JLabel currentPlayer = new JLabel("Current Player: Undefined ");  // Zmieniłem tutaj ~P
+    private JLabel currentPlayer = new JLabel("Current Player: Undefined ");
 
     private JLabel blackScore = new JLabel("White Captured: 0 ");
     private JLabel whiteScore = new JLabel("Black Captured: 0 ");
@@ -67,6 +67,10 @@ public class GameplayView extends BasicGameView
       } else {
         moveButton[x][y].setIcon(Sprites.GetWhite());
       }
+  }
+
+  public void Log( String message ) {
+      log.setText( message );
   }
 
 }
