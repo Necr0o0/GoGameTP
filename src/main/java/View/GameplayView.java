@@ -73,4 +73,8 @@ public class GameplayView extends BasicGameView
       log.setText( message );
   }
 
+  public void ClearField( int x, int y ) {
+    moveButton[x][y].setIcon(Sprites.GetPoint());
+  }
+
 }

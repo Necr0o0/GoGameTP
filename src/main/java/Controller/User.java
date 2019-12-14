@@ -2,10 +2,12 @@ package Controller;
 
 import Model.DefaultGameLogic;
 import Model.Enums.PlayerColor;
+import Model.GameMechanics.Chain;
 import Model.IGameLogic;
 
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -22,10 +24,11 @@ public class User implements Runnable {
 	// Connection-related fields
 	public Socket socket;
 	Scanner in;
-	PrintWriter out;
+	public PrintWriter out;
 
 	// Gameplay-related fields
 	public PlayerColor color;
+	public ArrayList<Chain> chain_list = new ArrayList<>();
 	public User opponent;
 	public DefaultGameLogic game; // Would be nice if this could be an interface, but then the variables don't seem to work...
 
@@ -59,10 +62,11 @@ public class User implements Runnable {
 			}
 
 			if( command[0].equals("PUT_STONE") ) {
-				System.out.println("Received " + "PUT_STONE");
+				//System.out.println("Received " + "PUT_STONE");
 				int y = Integer.parseInt( command[1] );
 				int x = Integer.parseInt( command[2] );
-				if( game.ValidateMove( this ) ) {
+				if( game.ValidateMove( this, x, y ) ) {
+					game.PlaceStone( x, y );
 					out.println("LOG wykonano_ruch");
 					out.println("VALID_MOVE " + x + " " + y);
 					opponent.out.println("OPPONENT_MOVED " + x + " " + y);

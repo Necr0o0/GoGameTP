@@ -26,7 +26,7 @@ public class Server extends Thread {
 			ExecutorService pool = Executors.newFixedThreadPool( 2 );
 			while( true )
 			{
-				DefaultGameLogic game = new DefaultGameLogic();
+				DefaultGameLogic game = new DefaultGameLogic( 19 );
 				pool.execute( new User(listener.accept(), PlayerColor.Black, game ) );
 				pool.execute( new User(listener.accept(), PlayerColor.White, game ) );
 			}
