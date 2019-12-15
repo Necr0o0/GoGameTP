@@ -12,6 +12,9 @@ public class DefaultGameLogic implements IGameLogic {
 	public User current_player;
 	public Stone[][] board;
 	int board_size;
+	// Fields related to the ko rule:
+	Stone ko = null;
+	int last_destroyed_stone_count = 0;
 
 	public DefaultGameLogic( int board_size ) {
 		board = new Stone[board_size][board_size];
@@ -24,7 +27,12 @@ public class DefaultGameLogic implements IGameLogic {
 	}
 
 	public boolean ValidateMove( User user, int xPos, int yPos ) {
-		return ( IsCurrentPlayer(user) && SpotIsUnoccupied( xPos, yPos ) );
+		return (
+			IsCurrentPlayer(user)
+				&& SpotIsUnoccupied( xPos, yPos )
+				&& KoRule( xPos, yPos )
+				&& NotSuicidal( xPos, yPos )
+		);
 	}
 
 	public boolean IsCurrentPlayer( User user ) {
@@ -33,10 +41,41 @@ public class DefaultGameLogic implements IGameLogic {
 	}
 
 	public boolean SpotIsUnoccupied( int xPos, int yPos ) {
+		// Return true if attempting to place a stone on an empty field.
 		return ( board[xPos][yPos].color == null );
 	}
 
+	public boolean NotSuicidal( int xPos, int yPos ) {
+		// Return true if at least one of the adjacent fields is or will become empty after this move,
+		// or if there's a friendly chain with enough liberties nearby.
+		ArrayList<Stone> adjacent = GetAdjacent( xPos, yPos );
+		for( int i=0; i< adjacent.size(); i++ ) {
+			Stone current = adjacent.get(i);
+			if( current.color == null
+				    || (current.color == current_player.opponent.color && current.GetChain().liberties.size() == 1)
+						|| (current.color == current_player.color && current.GetChain().liberties.size() > 1)
+			) return true;
+		}
+		return false;
+	}
+
+	public boolean KoRule( int xPos, int yPos ) {
+		// Return false if attempting to break the ko rule, and true otherwise.
+		if( ko != null ) {
+			if (ko.xPos == xPos && ko.yPos == yPos) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return true;
+		}
+	}
+
 	public void PlaceStone( int xPos, int yPos ) {
+		// The move was valid, so forget about the ko field:
+		ko = null;
+
 		// Get adjacent stones:
 		ArrayList<Stone> adjacent = GetAdjacent( xPos, yPos );
 
@@ -67,22 +106,54 @@ public class DefaultGameLogic implements IGameLogic {
 				opponent_chain.RemoveLiberty( new_stone );
 
 				if( opponent_chain.liberties.size() == 0 ) {
+					// Get the number of captured stones for the ko rule:
+					last_destroyed_stone_count = opponent_chain.stones.size();
+					// Update the capture count for the current player and notify the clients:
+					current_player.captured += last_destroyed_stone_count;
+					current_player.out.println( "CAP " + last_destroyed_stone_count );
+					current_player.opponent.out.println( "OPPONENT_CAP " + last_destroyed_stone_count );
+					System.out.println( "Capped " + current_player.captured );
+
+
 					// The chain will be captured as the result of this move,
-					// so this spot should be added to new_liberties:
+					// so all chains next to it must have their liberties updated:
+					for( int j=0; j<opponent_chain.stones.size(); j++ ) {
+						// Iterate over every stone in the soon-to-be-captured chain
+						Stone tmp = opponent_chain.stones.get(j);
+
+						ArrayList<Stone> tmp_adj = GetAdjacent( tmp.xPos, tmp.yPos );
+						System.out.println("tmp_adj.size()="+tmp_adj.size());
+						for( int k=0; k<tmp_adj.size(); k++ ) {
+							// Look around, and if you see an enemy chain, notify it that
+							// your current position will become its new liberty
+							Stone tmp_from_another_chain = tmp_adj.get(k);
+
+							if( tmp_from_another_chain.color == current_player.color ) {
+								if( !tmp_from_another_chain.GetChain().liberties.contains(tmp) )
+									tmp_from_another_chain.GetChain().liberties.add(tmp);
+							}
+						}
+
+					}
+					// The newly placed stone counts its liberties after the loop,
+					// because it's not in any Chain yet:
 					new_liberties.add( current_stone );
+
 					opponent_chain.ClearStones( current_player );
 
+					// Remove the chain from the player's list:
 					current_player.opponent.chain_list.remove( opponent_chain );
 				}
 
-				System.out.println( "liberties="+opponent_chain.liberties.size() );
+				System.out.println( "opponent liberties="+opponent_chain.liberties.size() );
 
 			}
 
 		}
 
-		//System.out.println( "friendly_adjacent_chains.size()="+friendly_adjacent_chains.size() );
-		//System.out.println( "new_liberties.size()="+new_liberties.size() );
+		// Apply the ko rule if needed:
+		if( friendly_adjacent_chains.size() == 0 && new_liberties.size() == 1 && last_destroyed_stone_count == 1)
+			ko = new_liberties.get(0);
 
 		// Add stone to new_chain and pass the information about gained liberties:
 		new_chain.AddStone( new_stone, new_liberties );

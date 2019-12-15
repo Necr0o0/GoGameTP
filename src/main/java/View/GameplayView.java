@@ -22,8 +22,8 @@ public class GameplayView extends BasicGameView
     private JLabel title = new JLabel("Go Game");
     private JLabel currentPlayer = new JLabel("Current Player: Undefined ");
 
-    private JLabel blackScore = new JLabel("White Captured: 0 ");
-    private JLabel whiteScore = new JLabel("Black Captured: 0 ");
+    private JLabel blackScore = new JLabel("Black Captured: 0 ");
+    private JLabel whiteScore = new JLabel("White Captured: 0 ");
 
     private JLabel log = new JLabel( "Game Log");
 
@@ -77,4 +77,11 @@ public class GameplayView extends BasicGameView
     moveButton[x][y].setIcon(Sprites.GetPoint());
   }
 
+  public void UpdateCaptured( PlayerColor color, int num_capped ) {
+    if( color==PlayerColor.Black ) {
+      blackScore.setText( "Black Captured: " + num_capped );
+    } else {
+      whiteScore.setText( "White Captured: " + num_capped );
+    }
+  }
 }

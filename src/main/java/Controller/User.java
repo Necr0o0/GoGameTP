@@ -31,6 +31,7 @@ public class User implements Runnable {
 	public ArrayList<Chain> chain_list = new ArrayList<>();
 	public User opponent;
 	public DefaultGameLogic game; // Would be nice if this could be an interface, but then the variables don't seem to work...
+	public int captured = 0;
 
 	public User(Socket socket, PlayerColor color, DefaultGameLogic game ) {
 		this.socket = socket;

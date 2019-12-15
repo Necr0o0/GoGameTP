@@ -13,6 +13,11 @@ public class Stone {
 		this.color = color;
 	}
 
+	public Stone( Stone position_of ) {
+		this.xPos = position_of.xPos;
+		this.yPos = position_of.yPos;
+	}
+
 	public Chain GetChain() {
 		return parent_chain;
 	}

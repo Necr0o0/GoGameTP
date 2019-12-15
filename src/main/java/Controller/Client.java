@@ -48,18 +48,24 @@ public class Client extends Thread {
 				int y = Integer.parseInt( command[1] );
 				int x = Integer.parseInt( command[2] );
 				game_view.PlaceStone( x, y, color );
-			} else if ( command[0].equals("OPPONENT_MOVED") ) {
+			} else if( command[0].equals("OPPONENT_MOVED") ) {
 				//System.out.println("Received " + "OPPONENT_MOVED");
 				int y = Integer.parseInt( command[1] );
 				int x = Integer.parseInt( command[2] );
 				game_view.PlaceStone( x, y, enemy_color );
-			} else if ( command[0].equals("LOG") ) {
+			} else if( command[0].equals("LOG") ) {
 				game_view.Log( command[1] );  // TODO change it so the message can contain spaces
-			} else if ( command[0].equals("CLEAR") ) {
+			} else if( command[0].equals("CLEAR") ) {
 				System.out.println("Received " + "CLEAR");
 				int y = Integer.parseInt( command[1] );
 				int x = Integer.parseInt( command[2] );
 				game_view.ClearField( x, y );
+			} else if( command[0].equals("CAP") ) {
+				int cap = Integer.parseInt( command[1] );
+				game_view.UpdateCaptured( color, cap );
+			} else if( command[0].equals("OPPONENT_CAP") ) {
+				int cap = Integer.parseInt( command[1] );
+				game_view.UpdateCaptured( enemy_color, cap );
 			}
 		}
 
