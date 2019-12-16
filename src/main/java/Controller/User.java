@@ -3,7 +3,6 @@ package Controller;
 import Model.DefaultGameLogic;
 import Model.Enums.PlayerColor;
 import Model.GameMechanics.Chain;
-import Model.IGameLogic;
 
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -23,15 +22,17 @@ public class User implements Runnable {
 
 	// Connection-related fields
 	public Socket socket;
-	Scanner in;
+	public Scanner in;
 	public PrintWriter out;
 
 	// Gameplay-related fields
 	public PlayerColor color;
 	public ArrayList<Chain> chain_list = new ArrayList<>();
 	public User opponent;
-	public DefaultGameLogic game; // Would be nice if this could be an interface, but then the variables don't seem to work...
-	public int captured = 0;
+	public DefaultGameLogic game;
+	public int captured = 0;  // the number of stones the player has captured so far
+	public int territory = 0;
+	public int final_score = 0;
 
 	public User(Socket socket, PlayerColor color, DefaultGameLogic game ) {
 		this.socket = socket;
@@ -56,25 +57,36 @@ public class User implements Runnable {
 	}
 
 	public void ListenLoop() {
-		while (in.hasNextLine()) {
+		while (in.hasNextLine() && game.in_progress ) {
 			String[] command = in.nextLine().split(" ");
-			for( int i=0; i<3; i++ ) {
-				System.out.println( command[i] );
-			}
 
 			if( command[0].equals("PUT_STONE") ) {
-				//System.out.println("Received " + "PUT_STONE");
-				int y = Integer.parseInt( command[1] );
-				int x = Integer.parseInt( command[2] );
-				if( game.ValidateMove( this, x, y ) ) {
-					game.PlaceStone( x, y );
+				int y = Integer.parseInt(command[1]);
+				int x = Integer.parseInt(command[2]);
+				if (game.ValidateMove(this, x, y)) {
+					game.prev_was_passed = false;
+					game.PlaceStone(x, y);
 					out.println("LOG wykonano_ruch");
+					opponent.out.println("LOG twój_ruch");
 					out.println("VALID_MOVE " + x + " " + y);
 					opponent.out.println("OPPONENT_MOVED " + x + " " + y);
 					game.current_player = this.opponent;  // End your turn
 				} else {
 					out.println("LOG nie_wolno");
-					//System.out.println( "Metoda game.ValidateMove() zwróciła \'false\'");
+				}
+			} else if( command[0].equals("PASS") ) {
+				if( game.ValidatePass( this ) && game.prev_was_passed ) {
+					// End the game if both players have passed consecutively
+					game.ConcludeGame();
+				} else if( game.ValidatePass( this ) ) {
+					// Otherwise just pass the turn if you can
+					game.prev_was_passed = true;
+					out.println("LOG spasowano_turę");
+					opponent.out.println("LOG przeciwnik_spasował");
+					game.current_player = this.opponent;  // End your turn
+				} else {
+					// Or don't, if you can't
+					out.println("LOG nie_wolno_spasować");
 				}
 			}
 		}

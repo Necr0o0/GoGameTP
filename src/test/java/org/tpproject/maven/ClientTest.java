@@ -16,6 +16,6 @@ class ClientTest {
 		System.out.println( bar );
 
 		// Note: Making the Player transmit anything to Client before using EchoReceivedString() method WILL break this test
-		assertTrue( foo.equals( bar ) );
+		assertEquals(foo, bar);
 	}
 }

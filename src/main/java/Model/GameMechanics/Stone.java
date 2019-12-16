@@ -7,6 +7,9 @@ public class Stone {
 	public PlayerColor color;
 	public Chain parent_chain;
 
+	// Fields related to counting score at the end of the game
+	public int[] territory_array = { 0, 0 };
+
 	public Stone( int xPos, int yPos, PlayerColor color ) {
 		this.xPos = xPos;
 		this.yPos = yPos;
@@ -27,4 +30,5 @@ public class Stone {
 		parent_chain.stones.remove(this);
 		this.parent_chain = null;
 	}
+
 }

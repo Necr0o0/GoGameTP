@@ -7,6 +7,8 @@ import View.Sprites.Sprites;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameplayView extends BasicGameView
 {
@@ -49,6 +51,12 @@ public class GameplayView extends BasicGameView
 
       this.add(settingsPanel,BorderLayout.LINE_END);
       settingsPanel.setLayout(new BoxLayout(settingsPanel,BoxLayout.Y_AXIS));
+
+      passButton.addActionListener( new ActionListener() {
+        public void actionPerformed( ActionEvent e ) {
+          client.SendMessage( "PASS" );
+        }
+      });
 
       settingsPanel.add(currentPlayer);
       settingsPanel.add(blackScore);

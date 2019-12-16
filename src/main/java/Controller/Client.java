@@ -44,19 +44,16 @@ public class Client extends Thread {
 		while (in.hasNextLine()) {
 			String[] command = in.nextLine().split(" ");
 			if( command[0].equals("VALID_MOVE") ) {
-				//System.out.println("Received " + "VALID_MOVE");
 				int y = Integer.parseInt( command[1] );
 				int x = Integer.parseInt( command[2] );
 				game_view.PlaceStone( x, y, color );
 			} else if( command[0].equals("OPPONENT_MOVED") ) {
-				//System.out.println("Received " + "OPPONENT_MOVED");
 				int y = Integer.parseInt( command[1] );
 				int x = Integer.parseInt( command[2] );
 				game_view.PlaceStone( x, y, enemy_color );
 			} else if( command[0].equals("LOG") ) {
-				game_view.Log( command[1] );  // TODO change it so the message can contain spaces
+				game_view.Log( command[1] );
 			} else if( command[0].equals("CLEAR") ) {
-				System.out.println("Received " + "CLEAR");
 				int y = Integer.parseInt( command[1] );
 				int x = Integer.parseInt( command[2] );
 				game_view.ClearField( x, y );
@@ -66,8 +63,14 @@ public class Client extends Thread {
 			} else if( command[0].equals("OPPONENT_CAP") ) {
 				int cap = Integer.parseInt( command[1] );
 				game_view.UpdateCaptured( enemy_color, cap );
+			} else if( command[0].equals("SHOW_SCORE") ) {
+				game_view.Log("Twój wynik: " + command[1] + ". Wynik przeciwnika: " + command[2]);
 			}
 		}
+
+		try {
+			socket.close();
+		} catch( Exception e ) {}
 
 	}
 
