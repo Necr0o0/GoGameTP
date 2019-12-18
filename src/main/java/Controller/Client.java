@@ -74,16 +74,8 @@ public class Client extends Thread {
 
 	}
 
-	// args[0] should be the server's address, localhost or 127.0.0.1 for now:
-	public static void main(String[] args ) throws Exception {
-
-
-	}
-
 	@Override
 	public void run() {
-
-
 		//System.out.println(client.socket.getRemoteSocketAddress());
 		this.color = PlayerColor.valueOf(this.in.next()); // Get assigned color from server
 		System.out.println("CLIENT SIE ODPALIL");

@@ -39,10 +39,13 @@ public class DefaultGameLogic implements IGameLogic {
 	}
 
 	public boolean ValidatePass( User user ) {
-		return(
-			IsCurrentPlayer( user )
-				&& HasOpponent( user )
-		);
+		boolean valid = IsCurrentPlayer( user )
+			                && HasOpponent( user );
+		if( valid ) {
+			// Forget about the ko field because a turn has passed
+			ko = null;
+		}
+		return valid;
 	}
 
 	public boolean IsCurrentPlayer( User user ) {
@@ -127,7 +130,6 @@ public class DefaultGameLogic implements IGameLogic {
 					current_player.captured += last_destroyed_stone_count;
 					current_player.out.println( "CAP " + current_player.captured );
 					current_player.opponent.out.println( "OPPONENT_CAP " + current_player.captured );
-					//System.out.println( "Capped " + current_player.captured );
 
 
 					// The chain will be captured as the result of this move,
@@ -137,7 +139,6 @@ public class DefaultGameLogic implements IGameLogic {
 						Stone tmp = opponent_chain.stones.get(j);
 
 						ArrayList<Stone> tmp_adj = GetAdjacent( tmp.xPos, tmp.yPos );
-						System.out.println("tmp_adj.size()="+tmp_adj.size());
 						for( int k=0; k<tmp_adj.size(); k++ ) {
 							// Look around, and if you see an enemy chain, notify it that
 							// your current position will become its new liberty

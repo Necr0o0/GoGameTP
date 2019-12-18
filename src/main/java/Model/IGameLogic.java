@@ -1,16 +1,10 @@
 package Model;
 
 import Controller.User;
-import Model.Enums.BoardPositionValue;
-import Model.Enums.PlayerColor;
-import Model.GameMechanics.Stone;
 
-public interface IGameLogic
-{
+public interface IGameLogic {
+	boolean ValidateMove( User user, int xPos, int yPos );
+	boolean ValidatePass( User user );
+	void PlaceStone( int xPos, int yPos );
 
-
-    //public PlayerColor GetCurrentPlayer();
-    //public BoardPositionValue[][] GetBoard();
-
-    //public void CheckBoard(); // checks game rules vie Getboard();
 }

@@ -9,15 +9,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
-	Lista komend:
-	CLIENT -> SERVER:
-		PUT_STONE x y
-	SERVER -> CLIENT:
-		VALID_MOVE x y
-		OPPONENT_MOVED x y
-
- */
 public class User implements Runnable {
 
 	// Connection-related fields
@@ -89,15 +80,6 @@ public class User implements Runnable {
 					out.println("LOG nie_wolno_spasować");
 				}
 			}
-		}
-	}
-
-	// Receive string, print it into console, then send back to the client:
-	public void EchoReceivedString() {
-		while( in.hasNextLine() ) {
-			String line = in.nextLine();
-			System.out.println( "Received: " + line );
-			out.println( line );
 		}
 	}
 

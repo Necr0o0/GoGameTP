@@ -13,7 +13,7 @@ public class StartView extends View.BasicGameView
     private JButton clientSettings = new JButton("Join Game");
     private JPanel settingsPanel = new JPanel();
     private JPanel titlePanel = new JPanel();
-    private JLabel title = new JLabel("Goo Game");
+    private JLabel title = new JLabel("Go Game");
 
     public StartView()
     {

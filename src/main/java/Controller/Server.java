@@ -11,12 +11,7 @@ import java.util.concurrent.Executors;
 public class Server extends Thread {
 
 	public static int server_port = 58901;
-
-	public static void main( String[] args ) throws Exception {
-
-	}
-
-
+	
 	@Override
 	public void run()
 	{

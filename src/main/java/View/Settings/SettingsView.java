@@ -73,7 +73,7 @@ public abstract class SettingsView extends BasicGameView
 
         _startGameButton.addActionListener(e -> {
 
-            System.out.println("ODPALAM ");
+            //System.out.println("ODPALAM ");
 
             try {
                 Client client = new Client( "127.0.0.1" );
