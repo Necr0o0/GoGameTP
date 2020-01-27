@@ -12,7 +12,7 @@ public class DefaultGameLogic implements IGameLogic {
 	public Stone[][] board;
 	int board_size;
 	// Fields related to the ko rule:
-	Stone ko = null;
+	public Stone ko = null;
 	int last_destroyed_stone_count = 0;
 	// Fields related to finishing the game:
 	public boolean prev_was_passed = false;
@@ -28,11 +28,8 @@ public class DefaultGameLogic implements IGameLogic {
 		this.board_size = board_size;
 	}
 
-	public boolean ValidateMove( User user, int xPos, int yPos ) {
-		return (
-			IsCurrentPlayer( user )
-				&& HasOpponent( user )
-				&& SpotIsUnoccupied( xPos, yPos )
+	public boolean ValidateMove( int xPos, int yPos ) {
+		return ( SpotIsUnoccupied( xPos, yPos )
 				&& KoRule( xPos, yPos )
 				&& NotSuicidal( xPos, yPos )
 		);

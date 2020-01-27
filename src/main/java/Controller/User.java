@@ -54,7 +54,7 @@ public class User implements Runnable {
 			if( command[0].equals("PUT_STONE") ) {
 				int y = Integer.parseInt(command[1]);
 				int x = Integer.parseInt(command[2]);
-				if (game.ValidateMove(this, x, y)) {
+				if (ValidateMove( x, y )) {
 					game.prev_was_passed = false;
 					game.PlaceStone(x, y);
 					out.println("LOG wykonano_ruch");
@@ -66,10 +66,10 @@ public class User implements Runnable {
 					out.println("LOG nie_wolno");
 				}
 			} else if( command[0].equals("PASS") ) {
-				if( game.ValidatePass( this ) && game.prev_was_passed ) {
+				if( ValidatePass() && game.prev_was_passed ) {
 					// End the game if both players have passed consecutively
 					game.ConcludeGame();
-				} else if( game.ValidatePass( this ) ) {
+				} else if( ValidatePass() ) {
 					// Otherwise just pass the turn if you can
 					game.prev_was_passed = true;
 					out.println("LOG spasowano_turę");
@@ -83,4 +83,26 @@ public class User implements Runnable {
 		}
 	}
 
+	public boolean ValidateMove(int xPos, int yPos ) {
+		return game.ValidateMove( xPos, yPos ) && IsCurrentPlayer() && HasOpponent();
+	}
+	/// Migrated from DefaultGameLogic
+	public boolean IsCurrentPlayer() {
+		// Makes the game turn-based; no player can make two moves in a row.
+		return (this == game.current_player);
+	}
+	public boolean HasOpponent() {
+		// Prevent from taking any actions before the other player joins.
+		return (this.opponent != null);
+	}
+
+	public boolean ValidatePass() {
+		boolean valid = IsCurrentPlayer()
+			                && HasOpponent();
+		if( valid ) {
+			// Forget about the ko field because a turn has passed
+			game.ko = null;
+		}
+		return valid;
+	}
 }
